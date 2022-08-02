@@ -2,9 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 
 
-import { registerValidator } from "./validations/auth.js";
+import { registerValidator,loginValidator, postCreationValidator } from "./validations.js";
 import checkAuth from './utils/checkAuth.js'
 import { getMe, login, register } from "./controllers/UserController.js";
+import * as PostController from "./controllers/PostController.js"
 
 mongoose
   .connect(
@@ -18,11 +19,15 @@ const app = express();
 
 app.use(express.json());
 
-app.post("/auth/login", login);
-
+app.post("/auth/login",loginValidator, login);
 app.post("/auth/register", registerValidator,register );
-
 app.get('/auth/me',checkAuth,getMe)
+
+app.post('/posts',checkAuth,postCreationValidator,PostController.create)
+app.get('/posts',PostController.getAll)
+app.get('/posts/:id',PostController.getOne)
+app.delete('/posts/:id',checkAuth,PostController.deleteOne)
+
 
 app.listen(9999, (err) => {
   if (err) {
