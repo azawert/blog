@@ -46,6 +46,8 @@ app.post(
   handleValidationErrors,
   UserController.register
 );
+app.get("/tags", PostController.getLastTags);
+app.get("/posts/tags", PostController.getLastTags);
 app.get("/auth/me", checkAuth, UserController.getMe);
 
 app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
