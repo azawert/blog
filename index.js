@@ -53,7 +53,7 @@ app.get("/auth/me", checkAuth, UserController.getMe);
 app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
   try {
     res.json({
-      url: `/uploads/${req.file.originalname}`,
+      url: `/upload/${req.file.originalname}`,
     });
   } catch (e) {
     res.status(500).json("Непридвиденная ошибка");

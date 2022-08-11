@@ -19,6 +19,6 @@ export const postCreationValidator = [
   body("text", "Необходимо ввести текст статьи")
     .isLength({ min: 25 })
     .isString(),
-  body("tags", "Неверный формат тэгов").optional().isArray(),
+  body("tags", "Неверный формат тэгов").optional().isString(),
   body("imageUrl", "Неверная ссылка на картинку").optional().isString(),
 ];
